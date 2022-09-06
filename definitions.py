@@ -135,8 +135,6 @@ def modify_products():
     with open('products-for-sale.txt', 'w') as f:
         f.write(str(products))
 
-# Billing Software
-
 
 def update_stock(purchase_dict):
     with open('products-for-sale.txt') as f:
@@ -145,6 +143,8 @@ def update_stock(purchase_dict):
         products[i]['stock'] -= purchase_dict[i]
     with open('products-for-sale.txt', 'w') as f:
         f.write(str(products))
+
+# Billing Software
 
 
 def get_purchase_list():
@@ -211,3 +211,31 @@ def bill(purchase_dict):
     print()
     print('\t       Visit Again!')
     update_stock(purchase_dict)
+
+# Employee Management
+
+
+def view_employee_details():
+    with open('employee-details.txt') as f:
+        employee_details = eval(f.read())
+    name_max = 0
+    for i in employee_details:
+        if len(i) > name_max:
+            name_max = len(i)
+    print('S.NO' + '   ' + 'NAME' + ' '*name_max + 'AGE' +
+          ' '*2 + 'DATE OF BIRTH' + ' '*3 + 'PHONE NO')
+
+
+def add_employee():
+    pass
+
+
+def remove_employee():
+    pass
+
+
+def modify_employee():
+    pass
+
+
+view_employee_details()
