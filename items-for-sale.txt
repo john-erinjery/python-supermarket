@@ -1,1 +1,0 @@
-{'apple': {'name': 'apple', 'category': 'fruit', 'price': 30.0, 'stock': 25.0}, 'cherry': {'name': 'cherry', 'category': 'fruit', 'price': 50.0, 'stock': 7.0}, 'Levi Captains Boxers': {'name': 'Captains Levi Boxers', 'category': 'clothing', 'price': 300.25, 'stock': 12.0}, 'mango': {'name': 'mango', 'category': 'fruit', 'price': 60.2, 'stock': 11.02}}
