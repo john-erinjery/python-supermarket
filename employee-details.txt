@@ -1,4 +1,1 @@
-{
-    'manu varma': {'name': 'manu varma', 'age': 30, 'birth': '20-01-1995', 'phone': '9658741236'},
-    'jagadigh kumar': {'name': 'jagadigh kumar', 'age': 35, 'birth': '22-11-1992', 'phone': '6352418574'}
-}
+{'jagadigh kumar': {'name': 'jagadigh kumar', 'age': 35, 'birth': '22-11-1992', 'phone': '6352418574'}, 'manu verma': {'name': 'manu verma', 'age': 31, 'birth': '21-02-1995', 'phone': '3625149874'}}

@@ -84,27 +84,31 @@ def remove_products():
     with open('products-for-sale.txt') as f:
         products = dict(eval(f.read()))
     product_remove_no = int(input('Number of Products to be Removed : '))
-    for i in range(product_remove_no):
+    n = 0
+    while n < product_remove_no:
         name = input('Enter the Name of the Product to be Removed : ')
         if name.lower() in products.keys():
             del products[name]
         else:
-            return False
+            print('No such product. Please check and Try again!')
+            continue
+        n += 1
     with open('products-for-sale.txt', 'w') as f:
         f.write(str(products))
         print('Products Removed!')
 
 
-def modify_products():
+def update_products():
     with open('products-for-sale.txt') as f:
         products = dict(eval(f.read()))
     products_modify_no = int(
-        input('Enter the number of Products to be Modified : '))
-    for i in range(products_modify_no):
-        name = input('Enter the Name of the Product to be Modified : ')
+        input('Enter the number of Products to be updated : '))
+    n = 0
+    while n < products_modify_no:
+        name = input('Enter the Name of the Product to be updated : ')
         if name.lower() in products.keys():
             modification_category = int(input(
-                'Enter the Category Number to be Modified\n1. Name 2. Category 3. Price 4. Stock : '))
+                'Enter the Category Number to be updated\n1. Name 2. Category 3. Price 4. Stock : '))
             if modification_category == 1:
                 print('Current Name :', products[name.lower()]['name'].title())
                 new_name = input('Enter the New Name : ').lower()
@@ -113,25 +117,30 @@ def modify_products():
                 products[new_name] = pro_dict
                 del products[name]
                 name = new_name
-                print('Name Modified!')
+                print('Name updated!')
             elif modification_category == 2:
                 print('Current Category :',
                       products[name.lower()]['category'].title())
                 new_cate = input('Enter the New Category : ').lower()
                 products[name]['category'] = new_cate
-                print('Category Modified!')
+                print('Category updated!')
             elif modification_category == 3:
                 print('Current Price :', str(products[name.lower()]['price']))
                 new_price = float(input('Enter the new Price: '))
                 products[name]['price'] = new_price
-                print('Price Modified!')
+                print('Price updated!')
             elif modification_category == 4:
                 print('Current Stock :', str(products[name.lower()]['stock']))
                 new_price = float(input('Enter the new Stock: '))
                 products[name]['stock'] = new_price
-                print('Stock Modified!')
+                print('Stock updated!')
             else:
                 print('Invalid Command!')
+                continue
+        else:
+            print('No Such Product. Please check and try again!')
+            continue
+        n += 1
     with open('products-for-sale.txt', 'w') as f:
         f.write(str(products))
 
@@ -223,19 +232,138 @@ def view_employee_details():
         if len(i) > name_max:
             name_max = len(i)
     print('S.NO' + '   ' + 'NAME' + ' '*name_max + 'AGE' +
-          ' '*2 + 'DATE OF BIRTH' + ' '*3 + 'PHONE NO')
+          ' '*4 + 'DATE-OF-BIRTH' + ' '*4 + 'PHONE-NO')
+    print('----' + '   ' + '----' + ' '*name_max + '---' +
+          ' '*4 + '-------------' + ' '*4 + '--------')
+    sn = 1
+
+    for i in employee_details:
+        name_space = (name_max + 4) - len(i)
+        print(str(sn) + '      ' +
+              employee_details[i]['name'].title() + ' '*name_space + str(employee_details[i]['age']) + ' '*5 + employee_details[i]['birth'] + ' '*7 + employee_details[i]['phone'])
+        sn += 1
 
 
 def add_employee():
-    pass
+    with open('employee-details.txt') as f:
+        details = eval(f.read())
+
+        employee_add_no = int(
+            input('Enter the Number of Employees to be Added : '))
+    for i in range(employee_add_no):
+        name = input('Enter the Full Name of the Employee : ').lower()
+        age = int(input('Enter the Age of the Employee : '))
+        dob = input('Enter the Date of Birth of the Employee (DD-MM-YYYY) : ')
+        phone = input('Enter the Phone Number of the Employee : ')
+    details[name] = {'name': name, 'age': age, 'birth': dob, 'phone': phone}
+    with open('employee-details.txt', 'w') as f:
+        f.write(str(details))
 
 
 def remove_employee():
-    pass
+    with open('employee-details.txt') as f:
+        details = eval(f.read())
+    employee_remove_no = int(
+        input('Enter the number of Employees to be Removed : '))
+    n = 0
+    while n < employee_remove_no:
+        name = input(
+            'Enter the Full Name of the Employee to be Removed : ').lower()
+        if name not in details.keys():
+            print('No Employee with that Name. Please check and try again.')
+            continue
+        else:
+            del details[name]
+        n += 1
+    with open('employee-details.txt', 'w') as f:
+        f.write(str(details))
 
 
-def modify_employee():
-    pass
+def update_employee():
+    with open('employee-details.txt') as f:
+        employee_details = eval(f.read())
+    employee_modification_no = int(
+        input('Enter The Number of Updation to be done : '))
+    n = 0
+    while n < employee_modification_no:
+        name = input(
+            'Enter the Name of the Employee to be updated : ').lower()
+        if name not in employee_details.keys():
+            print(
+                'The name entered does not exist in the records. Please check and try again.')
+            continue
+        field = int(input(
+            'Enter the field option of the Employee to be updated\n1.Name 2.Age 3.Date-of-Birth 4.Phone-no :  '))
+        if field == 1:
+            print('Current Name :', name.title())
+            new_name = input('New Name : ').lower()
+            employee_details[name]['name'] = new_name
+            employee_details[new_name] = employee_details[name]
+            del employee_details[name]
+            print('Name Updated!')
+        elif field == 2:
+            print('Current Age :', str(employee_details[name]['age']))
+            new_age = int(input('New Age : '))
+            employee_details[name]['age'] = new_age
+            print('Age Updated!')
+        elif field == 3:
+            print('Current Date-of-Birth :', employee_details[name]['birth'])
+            new_dob = input('New Date-of-Birth (DD-MM-YYYY) : ')
+            employee_details[name]['birth'] = new_dob
+            print('Date-of-Birth Updated!')
+        elif field == 4:
+            print('Current Phone-no :', employee_details[name]['phone'])
+            new_phone = input('New Phone-no : ')
+            employee_details[name]['phone'] = new_phone
+            print('Phone-no Updated!')
+        else:
+            print('Invalid Option. Please try again.')
+            continue
+        n += 1
+    with open('employee-details.txt', 'w') as f:
+        f.write(str(employee_details))
+
+# Supermarket Details Management
 
 
-view_employee_details()
+def view_supermarket_details():
+    with open('supermarket-details.txt') as f:
+        supermarket_details = eval(f.read())
+    print('S.NO' + '   ' + 'NAME' + ' '*(1 + len(supermarket_details['name'])) + 'ADDRESS' + ' '*len(
+        supermarket_details['address']) + 'PHONE-NO')
+    print('----' + '   ' + '----' + ' ' *
+          (1 + len(supermarket_details['name'])) + '-------' + ' '*len(supermarket_details['address']) + '--------')
+    print('1. ' + '    ' + supermarket_details['name'].title() + ' '*((len(supermarket_details['name']) + 5) - len(
+        supermarket_details['name'])) + supermarket_details['address'].title()
+        + ' '*(len(supermarket_details['address']) + 7 - len(supermarket_details['address'])) + supermarket_details['phone'])
+
+
+def update_supermarket_details():
+    with open('supermarket-details.txt') as f:
+        details = eval(f.read())
+    update_no = int(input('Enter the number of Updates to be done : '))
+    n = 0
+    while n < update_no:
+        field = int(
+            input('Enter the field to be Updated\n1. Name 2. Address 3. Phone : '))
+        if field == 1:
+            print('Current Namme :', details['name'])
+            new_name = input('New Name : ').lower()
+            details['name'] = new_name
+            print('Name Updated!')
+        elif field == 2:
+            print('Current Address :', details['address'])
+            new_address = input('New Address : ').lower()
+            details['address'] = new_address
+            print('Address Updated!')
+        elif field == 3:
+            print('Current Phone-no :', details['phone'])
+            new_phone = input('New Phone-no : ')
+            details['phone'] = new_phone
+            print('Phone-no Updated!')
+        else:
+            print('Invalid Option. Please try again.')
+            continue
+        n += 1
+    with open('supermarket-details.txt', 'w') as f:
+        f.write(str(details))

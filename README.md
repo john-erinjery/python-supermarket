@@ -12,7 +12,7 @@ This project is a depiction of a supermarket management software, including most
     The billing software takes in products and returns the total cost in bill format.
 
 4. Employee Management:
-    The Employee details can also be viewed and changed through this software.
+    The Employee details can also be viewed and updated through this software.
 
 5. Supermarket Details Management:
     The Supermarket details like the name, address and phone number can also be viwed and modified.
