@@ -4,7 +4,9 @@ from pickle import load, dump
 # Login
 
 
-def login(usrname: str, pswd: str):
+def login():
+    usrname = input('Enter Username : ')
+    pswd = input('Enter Password : ')
     fr = open('authentification-details.dat', 'rb')
     crt_username, crt_password = load(fr)
     if crt_password == pswd and crt_username == usrname:
@@ -18,7 +20,9 @@ def login(usrname: str, pswd: str):
 def change_credentials():
     usrname = input('Enter Current Username : ')
     pswrd = input('Enter Current Password : ')
-    if login(usrname, pswrd):
+    fr = open('authentification-details.dat', 'rb')
+    crt_username, crt_password = load(fr)
+    if crt_password == pswrd and crt_username == usrname:
         new_usrname = input('Enter New Username : ')
         new_passwd = input('Enter New Password : ')
         dump((new_usrname, new_passwd), open(
@@ -160,14 +164,14 @@ def get_purchase_list():
     with open('products-for-sale.txt') as f:
         products = dict(eval(f.read()))
     items_purchased = {}
-    print('--Enter \'quit\' to Quit--')
+    print('--Enter \'q\' to Quit--')
     print()
     while True:
         item = input('Enter Product Purchased : ').lower()
         if item == 'quit':
             break
         elif item not in products.keys():
-            print('Invalid Input')
+            print('Product not Availiable. Please Try Again.')
             continue
         quantity = float(input('Enter Quantity : '))
         if quantity > products[item]['stock']:
@@ -258,6 +262,7 @@ def add_employee():
     details[name] = {'name': name, 'age': age, 'birth': dob, 'phone': phone}
     with open('employee-details.txt', 'w') as f:
         f.write(str(details))
+    print('Employee Added!')
 
 
 def remove_employee():
@@ -277,6 +282,7 @@ def remove_employee():
         n += 1
     with open('employee-details.txt', 'w') as f:
         f.write(str(details))
+    print('Employee Removed!')
 
 
 def update_employee():
@@ -367,3 +373,45 @@ def update_supermarket_details():
         n += 1
     with open('supermarket-details.txt', 'w') as f:
         f.write(str(details))
+
+# Program Functions
+
+
+def supermart_name():
+    with open('supermarket-details.txt') as f:
+        details = eval(f.read())
+    print('\t     {}'.format(details['name'].upper()))
+    print('\t     {}'.format('-'*len(details['name'])))
+    print()
+
+
+def get_user_option():
+    cmd = input('Enter Option : ')
+    if cmd.isdigit():
+        return int(cmd)
+    else:
+        return cmd.strip()
+
+
+def get_user_q_or_b():
+    cmd = input('Enter \'q\' to quit, \'b\' to go back : ').lower()
+    if cmd.strip() in ['q', 'b']:
+        return cmd.strip()
+    else:
+        return False
+
+
+def options_1():
+    print('1. Billing Software\n2. Employee Management\n3. Product Managent\n4. Supermarket Management\n5. Quit')
+
+
+def options_2():
+    print('1. View Employee Details\n2. Update Employee Details\n3. Add Employee\n4. Remove Employee\n5. Back')
+
+
+def options_3():
+    print('1. View Product Details\n2. Update Product Details\n3. Add Product\n4. Remove Product\n5. Back')
+
+
+def options_4():
+    print('1. View Supermarket Details\n2. Update Supermarket Details\n3. Change Login Credentials\n4. Back')
