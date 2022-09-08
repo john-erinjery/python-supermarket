@@ -20,4 +20,4 @@ This project is a depiction of a supermarket management software, including most
 
 # Download
 - To Download this software simply fork and clone this repository. Else:
-- <a href="https://github.com/john-erinjery/python-supermarket/archive/refs/heads/main.zip">Download</a>a a zip file of this repository.
+- <a href="https://github.com/john-erinjery/python-supermarket/archive/refs/heads/main.zip">Download</a> a a zip file of this repository.
