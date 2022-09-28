@@ -168,17 +168,18 @@ def get_purchase_list():
     print()
     while True:
         item = input('Enter Product Purchased : ').lower()
-        if item == 'quit':
+        if item in ['quit', 'q']:
             break
         elif item not in products.keys():
-            print('Product not Availiable. Please Try Again.')
+            print('Product not Availiable. Please Try Again.\n')
             continue
         quantity = float(input('Enter Quantity : '))
         if quantity > products[item]['stock']:
             print(
-                'Purchased quantity greater than total stock. Please check the Quantity.')
+                'Purchased quantity greater than total stock. Please check the quantity.\n')
             continue
         items_purchased[item] = quantity
+        print()
     return items_purchased
 
 
@@ -190,7 +191,7 @@ def bill(purchase_dict):
     sn = 1
     print()
     print('\t     {}'.format(details['name'].upper()))
-    print('        {}'.format(details['address']))
+    print('        {}'.format(details['address'].title()))
     print('\t      Ph: {}'.format(str(details['phone'])))
     print()
     rate_space = 0
@@ -259,7 +260,8 @@ def add_employee():
         age = int(input('Enter the Age of the Employee : '))
         dob = input('Enter the Date of Birth of the Employee (DD-MM-YYYY) : ')
         phone = input('Enter the Phone Number of the Employee : ')
-    details[name] = {'name': name, 'age': age, 'birth': dob, 'phone': phone}
+        details[name] = {'name': name, 'age': age,
+                         'birth': dob, 'phone': phone}
     with open('employee-details.txt', 'w') as f:
         f.write(str(details))
     print('Employee Added!')
@@ -387,6 +389,7 @@ def supermart_name():
 
 def get_user_option():
     cmd = input('Enter Option : ')
+    print()
     if cmd.isdigit():
         return int(cmd)
     else:
@@ -394,8 +397,10 @@ def get_user_option():
 
 
 def get_user_q_or_b():
+    print()
     cmd = input('Enter \'q\' to quit, \'b\' to go back : ').lower()
     if cmd.strip() in ['q', 'b']:
+        print()
         return cmd.strip()
     else:
         return False

@@ -3,19 +3,19 @@
 import definitions
 definitions.supermart_name()
 n = 0
-logged_in = True
+logged_in = False
 while n < 3:
     if definitions.login():
         logged_in = True
         print('Log in Successful!')
         break
     else:
-        print('--Wrong Username or Password.')
+        print('\n--Wrong Username or Password.')
         if n != 2 and n != 1:
             print('--The program will terminate after',
-                  str(2-n), 'more attempts.')
+                  str(2-n), 'more attempts.\n')
         elif n == 1:
-            print('--The Program will terminate after 1 more attempt.')
+            print('--The Program will terminate after 1 more attempt.\n')
         n += 1
 if logged_in:
     print()
@@ -30,7 +30,9 @@ if logged_in:
             else:
                 print('Invalid Input.')
         if optn == 1:
-            definitions.bill(definitions.get_purchase_list())
+            purchase_list = definitions.get_purchase_list()
+            if len(purchase_list) >= 1:
+                definitions.bill(purchase_list)
             cmd = False
             n = 0
             while cmd == False:
