@@ -61,7 +61,7 @@ def view_product_details():
         cate_space = (price_max + 6) - (len(str(products[i]['price'])) + 1)
         stock_space = (8 + cate_max) - (len(str(products[i]['category'])))
         print(str(sn) + '     ' + products[i]['name'].title() + ' '*price_space + str(products[i]['price']) + ' '*cate_space + products[i]['category'].title()
-              + ' '*stock_space + str(round(products[i]['stock'], 1)))
+              + ' '*stock_space + str(round(products[i]['stock'], 1)), products[i]['unit'].lower())
         sn += 1
 
 
@@ -69,19 +69,22 @@ def add_products():
     with open('products-for-sale.txt') as f:
         products = eval(f.read())
     product_add_no = int(input('Number of Products to be Added : '))
-    for i in range(product_add_no):
+    n = 0
+    while n < product_add_no:
         name = input('Enter Product Name : ')
         category = input('Enter Product Category : ')
         price = float(input('Enter Product Price : '))
         stock = float(input('Enter Product Stock : '))
+        unit = input('Enter Product Unit : ')
         if name not in products.keys():
             products[name.lower()] = {'name': name.lower(
-            ), 'category': category.lower(), 'price': price, 'stock': stock}
+            ), 'category': category.lower(), 'price': price, 'stock': stock, 'unit' : unit}
         else:
-            return False
+            print('The Item is already in the store!\n')
+        print('Product Added!\n')
+        n += 1
     with open('products-for-sale.txt', 'w') as f:
         f.write(str(products))
-        print('Products Added!')
 
 
 def remove_products():
@@ -97,6 +100,7 @@ def remove_products():
             print('No such product. Please check and Try again!')
             continue
         n += 1
+        print('Product Added!\n')
     with open('products-for-sale.txt', 'w') as f:
         f.write(str(products))
         print('Products Removed!')
@@ -144,6 +148,7 @@ def update_products():
         else:
             print('No Such Product. Please check and try again!')
             continue
+        print()
         n += 1
     with open('products-for-sale.txt', 'w') as f:
         f.write(str(products))
@@ -262,9 +267,9 @@ def add_employee():
         phone = input('Enter the Phone Number of the Employee : ')
         details[name] = {'name': name, 'age': age,
                          'birth': dob, 'phone': phone}
+        print('Employee Added!\n')
     with open('employee-details.txt', 'w') as f:
         f.write(str(details))
-    print('Employee Added!')
 
 
 def remove_employee():
