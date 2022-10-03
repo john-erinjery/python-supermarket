@@ -1,12 +1,12 @@
 # The recurssively used functions for the program are placed here
 from pickle import load, dump
-
+from getpass import getpass
 # Login
 
 
 def login():
     usrname = input('Enter Username : ')
-    pswd = input('Enter Password : ')
+    pswd = getpass('Enter Password : ')
     fr = open('authentification-details.dat', 'rb')
     crt_username, crt_password = load(fr)
     if crt_password == pswd and crt_username == usrname:
@@ -407,7 +407,7 @@ def get_user_q_or_b():
 
 
 def options_1():
-    print('1. Billing Software\n2. Employee Management\n3. Product Managent\n4. Supermarket Management\n5. Quit')
+    print('1. Billing Software\n2. Employee Management\n3. Product Management\n4. Supermarket Management\n5. Quit')
 
 
 def options_2():
